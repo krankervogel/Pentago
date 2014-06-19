@@ -12,6 +12,7 @@ public class Test {
 //		System.out.println(7%3);
 //		System.out.println(7/3);
 		try {
+            System.out.println("Hallo");
 			test(0);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
