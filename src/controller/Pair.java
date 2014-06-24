@@ -25,4 +25,8 @@ public class Pair<A, B> {
 	public void setSecond(B second){
 		this.second = second;
 	}
+	
+	public String toString(){
+	    return "(" + first.toString() + ", " + second.toString() + ")";
+	}
 }

@@ -7,7 +7,10 @@ package model;
 
 public class GameBoard {
 
-	private Segment[][] board = new Segment[2][2];
+  public static final int SEGMENT_SIZE = 3, SEGMENTS = 2, 
+                          DIMENSION = SEGMENT_SIZE * SEGMENTS;
+  
+	private Segment[][] board = new Segment[SEGMENTS][SEGMENTS];
 	
 	public static final int TOP = 0, BOTTOM = 1, LEFT = 0, RIGHT = 1;
 	
@@ -20,17 +23,17 @@ public class GameBoard {
 	}
 	
 	public GameBoard(Segment[][] board) throws WrongBoardSizeException{
-		if(board.length != 2 || board[0].length != 2|| board[1].length != 2)
+		if(board.length != SEGMENTS || board[TOP].length != SEGMENTS || board[BOTTOM].length != SEGMENTS)
 			throw new WrongBoardSizeException("Illegal board size!");
 		this.board = board;
 	}
 	
 	public void setValue(int x, int y, int color){
-		this.board[x/3][y/3].setFieldValue(x%3, y%3, color);
+		this.board[x/SEGMENT_SIZE][y/SEGMENT_SIZE].setFieldValue(x%SEGMENT_SIZE, y%SEGMENT_SIZE, color);
 	}
 	
 	public int getValue(int x, int y){
-		return this.board[x/3][y/3].getFieldValue(x%3, y%3);
+		return this.board[x/SEGMENT_SIZE][y/SEGMENT_SIZE].getFieldValue(x%SEGMENT_SIZE, y%SEGMENT_SIZE);
 	}
 	
 	public void rotateSegment(int x, int y, boolean counterClockwise){
@@ -38,9 +41,9 @@ public class GameBoard {
 	}
 	
 	public int[][] getBoardMatrix(){
-		int[][] boardMatrix = new int[6][6];
-		for (int i=0; i<6; i++){
-			for(int j=0; j<6 ;j++)
+		int[][] boardMatrix = new int[DIMENSION][DIMENSION];
+		for (int i=0; i<DIMENSION; i++){
+			for(int j=0; j<DIMENSION ;j++)
 				boardMatrix[i][j] = getValue(i,j);
 		}
 		return boardMatrix;
@@ -50,7 +53,7 @@ public class GameBoard {
 
 		public static final int WHITE = 1, BLACK = 2, UNSET = 0;
 
-		private int[][] segment = new int[3][3];
+		private int[][] segment = new int[SEGMENT_SIZE][SEGMENT_SIZE];
 
 		public Segment() {
 		}
@@ -68,20 +71,20 @@ public class GameBoard {
 		}
 
 		private void rotate(boolean dir) {
-			int[][] newSeg = new int[3][3];
+			int[][] newSeg = new int[SEGMENT_SIZE][SEGMENT_SIZE];
 
 			// dir is the rotation direction, false means clockwise, true
 			// counterclockwise
 			if (dir) {
-				for (int i = 0; i < 3; i++) {
-					for (int j = 0; j < 3; j++) {
-						newSeg[i][j] = segment[2 - j][i];
+				for (int i = 0; i < SEGMENT_SIZE; i++) {
+					for (int j = 0; j < SEGMENT_SIZE; j++) {
+						newSeg[i][j] = segment[SEGMENT_SIZE - 1 - j][i];
 					}
 				}
 			} else {
-				for (int i = 0; i < 3; i++) {
-					for (int j = 0; j < 3; j++) {
-						newSeg[i][j] = segment[j][2 - i];
+				for (int i = 0; i < SEGMENT_SIZE; i++) {
+					for (int j = 0; j < SEGMENT_SIZE; j++) {
+						newSeg[i][j] = segment[j][SEGMENT_SIZE - 1 - i];
 					}
 				}
 			}
