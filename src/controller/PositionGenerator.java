@@ -3,8 +3,12 @@ package controller;
 /**@author nda*/
 
 public interface PositionGenerator {
-    
-    public static final int LINE = 0, COLUMN = 1, DIAGONAL_DOWN = 2, DIAGONAL_UP = 2;
 
+    /**
+     * Diese Methode erzeugt aus einem gegebenen Index (entlang der Zeile, Spale oder Diagonale) eine Position.
+     * @param i
+     * @return
+     */
+    
     public Position makePosition(int i);
 }
