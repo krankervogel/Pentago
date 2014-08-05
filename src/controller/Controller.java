@@ -53,7 +53,7 @@ public class Controller {
     }
 
     private LinkedList<Position> lineMandatory(final int line) {
-        PositionGenerator pg = new PositionGenerator() {
+    	PositionGenerator pg = new PositionGenerator() {
             public Position makePosition(int i) {
                 return new Position(line, i);
             }

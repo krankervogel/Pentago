@@ -2,8 +2,8 @@ package controller;
 
 public class Pair<A, B> {
 
-	A first;
-	B second;
+	private A first;
+	private B second;
 	
 	public Pair(A first, B second){
 		this.first = first;
