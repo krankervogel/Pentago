@@ -5,7 +5,7 @@ package controller;
 public interface PositionGenerator {
 
     /**
-     * Diese Methode erzeugt aus einem gegebenen Index (entlang der Zeile, Spale oder Diagonale) eine Position.
+     * Diese Methode erzeugt aus einem gegebenen Index (entlang der Zeile, Spalte oder Diagonale) eine Position.
      * @param i
      * @return
      */
