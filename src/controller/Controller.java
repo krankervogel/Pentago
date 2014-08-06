@@ -203,8 +203,8 @@ public class Controller {
             tests.add(new Boolean(wonCollection(player, columnMandatory(i), columnOptional(i))));
         }
         
-        boolean b;
-        for (int i = 0; b = i<2; i++) {
+        boolean[] bools = {true, false};
+        for (boolean b : bools) {
             tests.add(new Boolean(wonCollection(player, diagonalDown(b), empty)));
             tests.add(new Boolean(wonCollection(player, diagonalUp(b), empty)));
             tests.add(new Boolean(wonCollection(player, diagonalMandatory(b), diagonalOptional(b))));
