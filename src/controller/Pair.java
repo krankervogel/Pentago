@@ -1,7 +1,7 @@
 package controller;
 
 /**
- * Repräsentiert Paare mit beliebigen Typen in den verschiedenen Komponenten.
+ * Repraesentiert Paare mit beliebigen Typen in den verschiedenen Komponenten.
  * 
  * @author nda
  *

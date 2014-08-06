@@ -48,8 +48,8 @@ public class Controller {
     }
     
     /**
-     * Prüft, ob ein gegebener Spieler alle erforderlichen Positionen zum Gewinnen befüllt.
-     * Dazu wird geprüft, ob alle verbindlichen Positionen besetzt sind und wenn die optionalen
+     * Prueft, ob ein gegebener Spieler alle erforderlichen Positionen zum Gewinnen befuellt.
+     * Dazu wird geprueft, ob alle verbindlichen Positionen besetzt sind und wenn die optionalen
      * nicht leer sind, dann ob eine von ihnen besetzt ist.
      * @param player
      * @param mandatory
@@ -70,35 +70,37 @@ public class Controller {
      * Diese Hilfsfunktion nimmt einen Positionsgenerator und benutzt diesen, um eine Liste von
      * Positionen zu erzeugen.
      * @param pg
+     * @param start Anfangsposition zum Zaehlen (inkl.)
+     * @param stop Endposition (exkl.)
      * @return
      */
     
-    private LinkedList<Position> listFromGenerator(PositionGenerator pg) {
+    private LinkedList<Position> listFromGenerator(PositionGenerator pg, int start, int stop) {
         LinkedList<Position> list = new LinkedList<Position>();
-        for (int i = 1; i < GameBoard.DIMENSION - 1; i++) {
+        for (int i = start; i < stop; i++) {
             list.add(pg.makePosition(i));
         }
         return list;
     }
     
     /**
-     * Konstruiert die Liste der verbindlichen Zeilenpositionen, nämlich alle bis auf
+     * Konstruiert die Liste der verbindlichen Zeilenpositionen, naemlich alle bis auf
      * die erste und letzte Position in der Zeile.
      * @param line
      * @return
      */
 
     private LinkedList<Position> lineMandatory(final int line) {
-        PositionGenerator pg = new PositionGenerator() {
+    	PositionGenerator pg = new PositionGenerator() {
             public Position makePosition(int i) {
                 return new Position(line, i);
             }
         };
-        return listFromGenerator(pg);
+        return listFromGenerator(pg, 1, GameBoard.DIMENSION -1);
     }
     
     /**
-     * Konstruiert die Liste der optionalen Zeilenpositionen, nämlich nur die erste und letzte.
+     * Konstruiert die Liste der optionalen Zeilenpositionen, naemlich nur die erste und letzte.
      * @param line
      * @return
      */
@@ -122,7 +124,7 @@ public class Controller {
                 return new Position(i, column);
             }
         };
-        return listFromGenerator(pg);
+        return listFromGenerator(pg, 1, GameBoard.DIMENSION - 1);
     }
     
     /**
@@ -150,7 +152,7 @@ public class Controller {
                 return new Position(lower ? i + 1 : i, lower ? i : i + 1);
             }
         };
-        return listFromGenerator(pg);
+        return listFromGenerator(pg, 0, GameBoard.DIMENSION - 1);
     }
     
     /**
@@ -165,15 +167,15 @@ public class Controller {
                 return new Position(lower ? i + 1 : i, lower ? GameBoard.DIMENSION - 1 - i : GameBoard.DIMENSION - i - 2);
             }
         };
-        return listFromGenerator(pg);
+        return listFromGenerator(pg, 0, GameBoard.DIMENSION -1);
     }
     
     /**
      * Konstruiert die Liste der in einer Hauptdiagonalen notwendigen Positionen,
-     * nämlich alle bis auf die erste und letzte.
+     * naemlich alle bis auf die erste und letzte.
      * 
-     * @param main wenn true, werden die Werte für die Haupdiagonale berechnet,
-     * anderenfalls die für die Hauptdiagonale nach Rotation um 90 Grad.
+     * @param main wenn true, werden die Werte fuer die Haupdiagonale berechnet,
+     * anderenfalls die fuer die Hauptdiagonale nach Rotation um 90 Grad.
      * @return
      */
 
@@ -183,7 +185,7 @@ public class Controller {
                 return new Position(i, main ? i : GameBoard.DIMENSION - 1 - i);
             }
         };
-        return listFromGenerator(pg);
+        return listFromGenerator(pg, 1, GameBoard.DIMENSION - 1);
     }
 
     private LinkedList<Position> diagonalOptional(final boolean main) {
@@ -200,8 +202,9 @@ public class Controller {
             tests.add(new Boolean(wonCollection(player, lineMandatory(i), lineOptional(i))));
             tests.add(new Boolean(wonCollection(player, columnMandatory(i), columnOptional(i))));
         }
-
-        for (boolean b = false; !b; b = !b) {
+        
+        boolean b;
+        for (int i = 0; b = i<2; i++) {
             tests.add(new Boolean(wonCollection(player, diagonalDown(b), empty)));
             tests.add(new Boolean(wonCollection(player, diagonalUp(b), empty)));
             tests.add(new Boolean(wonCollection(player, diagonalMandatory(b), diagonalOptional(b))));
